@@ -6,7 +6,12 @@
 
 ## Game Design
 ### What Game?
+1. ~~Pong~~
+2. ~~Floppy Bird~~
+3. ~~Tic Tac Toe~~
+4. Maze (preferable)
 ### Game rules?
+
 ### Hardware challenge?
 ### Software challenge?
 
