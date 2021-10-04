@@ -14,6 +14,7 @@
 
 ### Hardware challenge?
 ### Software challenge?
+#### Modules for Maze Game:
 
 ## Program Structure
 
