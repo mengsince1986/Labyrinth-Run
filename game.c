@@ -3,6 +3,8 @@
 #include "pacer.h"
 #include "navswitch.h"
 
+// Fi was here
+
 // maze patterns
 uint8_t maze_pattern[] =
 {
@@ -33,7 +35,7 @@ int main (void)
     ledmat_init ();
     navswitch_init ();
 
-    pacer_init (1000);
+    pacer_init (250);
 
 
     while (1)
