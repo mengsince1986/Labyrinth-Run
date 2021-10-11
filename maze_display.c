@@ -52,6 +52,7 @@ static MazeStage_t* CURRENT_MAZE = &STAGE1;
 void mazeDisplay_init (void)
 {
     ledmat_init ();
+    maze_setStage (STAGE_1);
 }
 
 

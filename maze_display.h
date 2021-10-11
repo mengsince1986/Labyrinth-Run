@@ -10,7 +10,7 @@
 #define MAZE_DISPLAY_H
 
 #include "system.h"
-
+#include "ledmat.h"
 
 // Maze stage identifier type
 typedef enum {STAGE_1 = 1, STAGE_2} StageIndex_t;
@@ -31,14 +31,14 @@ typedef struct
 } MazeStage_t;
 
 
-// Maze display initialiser
-void mazeDisplay_init (void);
-
-
 /** Current maze stage setter
  * @parameter stage_index
  */
 void maze_setStage (StageIndex_t stage_index);
+
+
+// Maze display initialiser
+void mazeDisplay_init (void);
 
 
 // Display current maze pattern

@@ -8,43 +8,48 @@
 
 // API modules
 #include "system.h"
-#include "ledmat.h"
 #include "pacer.h"
-#include "navswitch.h"
+#include "maze_display.h"
+// #include "ledmat.h"
+// #include "navswitch.h"
 
 // Game modules
 
 // Fi was here
 
+/*
 // maze patterns
 uint8_t maze_pattern[] =
 {
     0b0001110, 0b0000010, 0b1001011, 0b0001000, 0b0111011
 };
+*/
 
 // player
-uint8_t player_loc[] = {2, 7};
+// uint8_t player_loc[] = {2, 7};
 
 int main (void)
 {
     // current led matrix column
-    uint8_t current_col = 0;
+    // uint8_t current_col = 0;
 
     // navigate task peroid
-    uint8_t nav_tick = 0;
+    // uint8_t nav_tick = 0;
 
     // trap
     // trap task period
-    uint16_t trap_tick = 0;
+    // uint16_t trap_tick = 0;
     // trap status
-    uint8_t trap_on = 0;
+    // uint8_t trap_on = 0;
     // trap location
-    uint8_t trap_loc[] = {1, 3};
+    // uint8_t trap_loc[] = {1, 3};
 
     // initialise program
     system_init ();
-    ledmat_init ();
-    navswitch_init ();
+    mazeDisplay_init ();
+    // ledmat_init ();
+    // navswitch_init ();
+
 
     pacer_init (400);
 
@@ -52,6 +57,9 @@ int main (void)
     while (1)
     {
         pacer_wait ();
+
+        maze_display ();
+        /*
 
         // display maze_pattern
         ledmat_init ();
@@ -62,6 +70,10 @@ int main (void)
         if (current_col > (LEDMAT_COLS_NUM - 1)) {
             current_col = 0;
         }
+
+        */
+
+        /*
 
         // display trap
         trap_tick++;
@@ -78,13 +90,16 @@ int main (void)
             }
         }
 
+        */
+
+        /*
 
         // move player (can only move up)
         nav_tick++;
         if (nav_tick >= 40) {
             nav_tick = 0;
             navswitch_update ();
-            /* if NORTH is pressed.  */
+            // if NORTH is pressed
             if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
                 // update maze_pattern
                 maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
@@ -94,7 +109,7 @@ int main (void)
                 maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
 
             }
-            /* if SOUTH is pressed.  */
+            // if SOUTH is pressed
             if (navswitch_push_event_p (NAVSWITCH_SOUTH)) {
                 // update maze_pattern
                 maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
@@ -103,7 +118,7 @@ int main (void)
                 // update maze_pattern
                 maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
             }
-            /* if EAST is pressed.  */
+            // if EAST is pressed
             if (navswitch_push_event_p (NAVSWITCH_EAST)) {
                 // update maze_pattern
                 maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
@@ -112,7 +127,7 @@ int main (void)
                 // update maze_pattern
                 maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
             }
-            /* if WEST is pressed.  */
+            // if WEST is pressed
             if (navswitch_push_event_p (NAVSWITCH_WEST)) {
                 // update maze_pattern
                 maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
@@ -122,6 +137,8 @@ int main (void)
                 maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
             }
         }
+
+        */
 
     }
 }
