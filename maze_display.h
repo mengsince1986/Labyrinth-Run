@@ -10,7 +10,6 @@
 #define MAZE_DISPLAY_H
 
 #include "system.h"
-#include "ledmat.h"
 
 // Maze stage identifier type
 typedef enum {STAGE_1 = 1, STAGE_2} StageIndex_t;
@@ -20,14 +19,16 @@ typedef enum {STAGE_1 = 1, STAGE_2} StageIndex_t;
  *  Configuration note:
  * 1. column index is 0-4; row index is 0-6
  * 2. maze_pattern = {0b-row7-row6-row5-row4-row3-row2-row1, ..., ...}
- * 3. start_loc = {row_index, col_index}
- * 4. pass_loc = {row_index, col_index}
+ * 3. start_loc = {row_index, col_index} where player starts
+ * 4. pass_loc = {row_index, col_index} where player passes stage
  */
 typedef struct
 {
     uint8_t maze_pattern[5];
-    uint8_t start_loc[2];
-    uint8_t pass_loc[2];
+    uint8_t playerStart_col;
+    uint8_t playerStart_row;
+    uint8_t playerFinish_col;
+    uint8_t playerFinish_row;
 } MazeStage_t;
 
 
@@ -62,6 +63,26 @@ void maze_setDot (uint8_t col, uint8_t row, bool state);
  * @parameter col, row
  */
 void maze_toggleDot (uint8_t col, uint8_t row);
+
+
+/** Current maze player start column location getter
+ */
+uint8_t maze_playerStartCol (void);
+
+
+/** Current maze player start row location getter
+ */
+uint8_t maze_playerStartRow (void);
+
+
+/** Current maze player finish column location getter
+ */
+uint8_t maze_playerFinishCol (void);
+
+
+/** Current maze player finish row location getter
+ */
+uint8_t maze_playerFinishRow (void);
 
 
 #endif // MAZE_DISPLAY_H

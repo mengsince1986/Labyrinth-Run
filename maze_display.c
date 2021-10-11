@@ -22,27 +22,31 @@ const uint8_t STAGE_NUM = 2;
 
 static MazeStage_t STAGE1 = {
     .maze_pattern = {
-        0b0001110, //col-1
-        0b0000010, //col-2
-        0b1001011, //col-3
-        0b0001000, //col-4
-        0b0111011  //col-5
+        0b0001110, //col-0
+        0b0000010, //col-1
+        0b1001011, //col-2
+        0b0001000, //col-3
+        0b0111011  //col-4
     },
-    .start_loc = {2, 6},
-    .pass_loc = {3, 0}
+    .playerStart_col = 2,
+    .playerStart_row = 6,
+    .playerFinish_col = 3,
+    .playerFinish_row = 0
 };
 
 
 static MazeStage_t STAGE2 = {
     .maze_pattern = {
+        0b0001000, //col-0
         0b0001000, //col-1
-        0b0001000, //col-2
-        0b1000000, //col-3
-        0b0001001, //col-4
-        0b0001000  //col-5
+        0b1000000, //col-2
+        0b0001001, //col-3
+        0b0001000  //col-4
     },
-    .start_loc = {2, 7},
-    .pass_loc = {4, 1}
+    .playerStart_col = 2,
+    .playerStart_row = 6,
+    .playerFinish_col = 4,
+    .playerFinish_row = 1
 };
 
 static MazeStage_t* CURRENT_MAZE = &STAGE1;
@@ -80,6 +84,7 @@ void maze_setStage (StageIndex_t stage_index)
 void maze_display (void)
 {
     static uint8_t display_col = 0;
+    mazeDisplay_init (); // reduce ledmatix ghosting
     ledmat_display_column((CURRENT_MAZE->maze_pattern)[display_col],
             display_col);
     display_col++;
@@ -144,4 +149,36 @@ void maze_toggleDot (uint8_t col, uint8_t row)
     } else {
         maze_setDot (col, row, true);
     }
+}
+
+
+/** Current maze player start column location getter
+ */
+uint8_t maze_playerStartCol (void)
+{
+    return CURRENT_MAZE->playerStart_col;
+}
+
+
+/** Current maze player start row location getter
+ */
+uint8_t maze_playerStartRow (void)
+{
+    return CURRENT_MAZE->playerStart_row;
+}
+
+
+/** Current maze player finish column location getter
+ */
+uint8_t maze_playerFinishCol (void)
+{
+    return CURRENT_MAZE->playerFinish_col;
+}
+
+
+/** Current maze player finish row location getter
+ */
+uint8_t maze_playerFinishRow (void)
+{
+    return CURRENT_MAZE->playerFinish_row;
 }

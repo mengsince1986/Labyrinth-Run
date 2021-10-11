@@ -10,21 +10,21 @@
 #include "system.h"
 #include "pacer.h"
 #include "maze_display.h"
+#include "player.h"
 // #include "navswitch.h"
 
 
 int main (void)
 {
     // navigate task peroid
-    // uint8_t nav_tick = 0;
+    uint16_t nav_tick = 0;
+    uint16_t nav_tick_max = 40;
 
-    // trap task period
+    // trap configuration
     uint16_t trap_tick = 0;
     uint16_t trap_tick_max = 500;
-    // trap status
-    // uint8_t trap_on = 0;
-    // trap location
-    // uint8_t trap_loc[] = {1, 3};
+    uint8_t trap_col = 1;
+    uint8_t trap_row = 3;
 
     // initialise program
     system_init ();
@@ -32,24 +32,36 @@ int main (void)
     pacer_init (500);
     mazeDisplay_init ();
     maze_setStage (STAGE_1);
+    player_init (maze_playerStartCol(), maze_playerStartRow());
 
 
     while (1)
     {
         pacer_wait ();
 
+        // run display
         maze_display ();
-        // display trap
+
+        // run trap
         trap_tick++;
         if (trap_tick >= trap_tick_max) {
             trap_tick = 0;
-            maze_toggleDot (1, 3);
+            maze_toggleDot (trap_col, trap_row);
         }
 
+        // move player
+        nav_tick++;
+        if (nav_tick >= nav_tick_max) {
+            nav_tick = 0;
+            if (player_move ()) {
+                maze_setDot (player_previousCol (), player_previousRow (), false);
+                maze_setDot (player_col (), player_row (), true);
+            }
+        }
 
         /*
 
-        // move player (can only move up)
+        // move player
         nav_tick++;
         if (nav_tick >= 40) {
             nav_tick = 0;
