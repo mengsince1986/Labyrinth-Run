@@ -1,7 +1,18 @@
+/** @file game.c
+ *  @group 112
+ *  @author Meng Zhang
+ *  @author Sophie Engel
+ *  @date October 2021
+ *  @brief A simple maze game with different stages
+ */
+
+// API modules
 #include "system.h"
 #include "ledmat.h"
 #include "pacer.h"
 #include "navswitch.h"
+
+// Game modules
 
 // Fi was here
 
@@ -35,7 +46,7 @@ int main (void)
     ledmat_init ();
     navswitch_init ();
 
-    pacer_init (250);
+    pacer_init (400);
 
 
     while (1)
