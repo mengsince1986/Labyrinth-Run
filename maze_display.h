@@ -12,7 +12,7 @@
 #include "system.h"
 
 // Maze stage identifier type
-typedef enum {STAGE_1 = 1, STAGE_2} StageIndex_t;
+typedef enum {STAGE_1 = 1, STAGE_2, STAGE_3, GAME_OVER} StageIndex_t;
 
 
 /** Maze stage struct type
@@ -24,6 +24,7 @@ typedef enum {STAGE_1 = 1, STAGE_2} StageIndex_t;
  */
 typedef struct
 {
+    StageIndex_t stage_name;
     uint8_t maze_pattern[5];
     uint8_t playerStart_col;
     uint8_t playerStart_row;
@@ -83,6 +84,11 @@ uint8_t maze_playerFinishCol (void);
 /** Current maze player finish row location getter
  */
 uint8_t maze_playerFinishRow (void);
+
+
+/** Current maze stage name getter
+ */
+StageIndex_t maze_stageName (void);
 
 
 #endif // MAZE_DISPLAY_H

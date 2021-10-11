@@ -18,9 +18,11 @@
  * 3. start_loc = {row_index, col_index}
  * 4. pass_loc = {row_index, col_index}
  */
-const uint8_t STAGE_NUM = 2;
+
+// static uint8_t STAGE_NUM = 2;
 
 static MazeStage_t STAGE1 = {
+    .stage_name = STAGE_1,
     .maze_pattern = {
         0b0001110, //col-0
         0b0000010, //col-1
@@ -36,6 +38,7 @@ static MazeStage_t STAGE1 = {
 
 
 static MazeStage_t STAGE2 = {
+    .stage_name = STAGE_2,
     .maze_pattern = {
         0b0001000, //col-0
         0b0001000, //col-1
@@ -43,10 +46,22 @@ static MazeStage_t STAGE2 = {
         0b0001001, //col-3
         0b0001000  //col-4
     },
-    .playerStart_col = 2,
+    .playerStart_col = 3,
     .playerStart_row = 6,
-    .playerFinish_col = 4,
-    .playerFinish_row = 1
+    .playerFinish_col = 0,
+    .playerFinish_row = 0
+};
+
+
+static MazeStage_t OVER = {
+    .stage_name = GAME_OVER,
+    .maze_pattern = {
+     0x30, 0x46, 0x40, 0x46, 0x30 // smiley face
+    },
+    .playerStart_col = 0,
+    .playerStart_row = 0,
+    .playerFinish_col = 0,
+    .playerFinish_row = 0
 };
 
 static MazeStage_t* CURRENT_MAZE = &STAGE1;
@@ -70,6 +85,12 @@ void maze_setStage (StageIndex_t stage_index)
             break;
         case STAGE_2:
             CURRENT_MAZE = &STAGE2;
+            break;
+        //case STAGE_3:
+        //    CURRENT_MAZE = &STAGE3;
+        //    break;
+        case GAME_OVER:
+            CURRENT_MAZE = &OVER;
             break;
         default:
             CURRENT_MAZE = &STAGE1;
@@ -181,4 +202,11 @@ uint8_t maze_playerFinishCol (void)
 uint8_t maze_playerFinishRow (void)
 {
     return CURRENT_MAZE->playerFinish_row;
+}
+
+/** Current maze stage name getter
+ */
+StageIndex_t maze_stageName (void)
+{
+    return CURRENT_MAZE->stage_name;
 }
