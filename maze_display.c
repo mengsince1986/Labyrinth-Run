@@ -42,13 +42,13 @@ static MazeStage_t STAGE2 = {
     .maze_pattern = {
         0b0001000, //col-0
         0b0001000, //col-1
-        0b1000000, //col-2
-        0b0001001, //col-3
+        0b0000000, //col-2
+        0b1001001, //col-3
         0b0001000  //col-4
     },
     .playerStart_col = 3,
     .playerStart_row = 6,
-    .playerFinish_col = 0,
+    .playerFinish_col = 4,
     .playerFinish_row = 0
 };
 

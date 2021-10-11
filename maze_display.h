@@ -12,7 +12,7 @@
 #include "system.h"
 
 // Maze stage identifier type
-typedef enum {STAGE_1 = 1, STAGE_2, STAGE_3, GAME_OVER} StageIndex_t;
+typedef enum {STAGE_1 = 1, STAGE_2, GAME_OVER} StageIndex_t;
 
 
 /** Maze stage struct type

@@ -19,7 +19,6 @@ int main (void)
 {
     // initialise program
     system_init ();
-    // navswitch_init ();
     pacer_init (defaultFreq);
     mazeDisplay_init ();
     maze_setStage (STAGE_1);
@@ -38,15 +37,16 @@ int main (void)
 
     while (!(state_isGameOver()))
     {
-        /*
+
         // check if current stage completed
         if (state_isStageComplete ()) {
+            system_init ();
+            pacer_init (defaultFreq);
             mazeDisplay_init ();
-            maze_setStage (STAGE_2);
+            maze_setStage (maze_stageName () + 1);
             player_init (maze_playerStartCol(), maze_playerStartRow());
             state_init ();
         }
-        */
 
         pacer_wait ();
 
@@ -54,10 +54,12 @@ int main (void)
         maze_display ();
 
         // run trap
-        trap_tick++;
-        if (trap_tick >= trap_tick_max) {
-            trap_tick = 0;
-            maze_toggleDot (trap_col, trap_row);
+        if (maze_stageName () == STAGE_1) {
+            trap_tick++;
+            if (trap_tick >= trap_tick_max) {
+                trap_tick = 0;
+                maze_toggleDot (trap_col, trap_row);
+            }
         }
 
         // move player
@@ -72,7 +74,7 @@ int main (void)
                 if ((player_col () == maze_playerFinishCol ()) &&
                         player_row () == maze_playerFinishRow ()) {
                     state_completeStage ();
-                    state_endGame ();
+                    // state_endGame ();
                     /**
                     if (maze_stageName () >= GAME_OVER) {
                         state_endGame ();
