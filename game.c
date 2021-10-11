@@ -58,54 +58,5 @@ int main (void)
                 maze_setDot (player_col (), player_row (), true);
             }
         }
-
-        /*
-
-        // move player
-        nav_tick++;
-        if (nav_tick >= 40) {
-            nav_tick = 0;
-            navswitch_update ();
-            // if NORTH is pressed
-            if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
-                // update maze_pattern
-                maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
-                // update player location
-                player_loc[1] -= 1;
-                // update maze_pattern
-                maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
-
-            }
-            // if SOUTH is pressed
-            if (navswitch_push_event_p (NAVSWITCH_SOUTH)) {
-                // update maze_pattern
-                maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
-                // update player location
-                player_loc[1] += 1;
-                // update maze_pattern
-                maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
-            }
-            // if EAST is pressed
-            if (navswitch_push_event_p (NAVSWITCH_EAST)) {
-                // update maze_pattern
-                maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
-                // update player location
-                player_loc[0] += 1;
-                // update maze_pattern
-                maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
-            }
-            // if WEST is pressed
-            if (navswitch_push_event_p (NAVSWITCH_WEST)) {
-                // update maze_pattern
-                maze_pattern[player_loc[0]] &= ~(1<<player_loc[1]); // turnoff player's previous position
-                // update player location
-                player_loc[0] -= 1;
-                // update maze_pattern
-                maze_pattern[player_loc[0]] |= (1<<player_loc[1]); // turn on player's new position
-            }
-        }
-
-        */
-
     }
 }
