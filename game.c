@@ -40,8 +40,8 @@ int main (void)
 
         // check if current stage completed
         if (state_isStageComplete ()) {
-            system_init ();
-            pacer_init (defaultFreq);
+            // system_init ();
+            // pacer_init (defaultFreq);
             mazeDisplay_init ();
             maze_setStage (maze_stageName () + 1);
             player_init (maze_playerStartCol(), maze_playerStartRow());
@@ -74,12 +74,10 @@ int main (void)
                 if ((player_col () == maze_playerFinishCol ()) &&
                         player_row () == maze_playerFinishRow ()) {
                     state_completeStage ();
-                    // state_endGame ();
-                    /**
-                    if (maze_stageName () >= GAME_OVER) {
+
+                    if (maze_stageName () >= (GAME_OVER - 1)) {
                         state_endGame ();
                     }
-                    */
                 }
 
                 // set game over if player move into wall or traps
