@@ -52,7 +52,6 @@ static MazeStage_t* CURRENT_MAZE = &STAGE1;
 void mazeDisplay_init (void)
 {
     ledmat_init ();
-    maze_setStage (STAGE_1);
 }
 
 
@@ -85,10 +84,64 @@ void maze_display (void)
             display_col);
     display_col++;
 
-    // if current column index is greater than max columns
+    // if current led column index is greater than max columns
     // reset current led column to 0
     if (display_col > (LEDMAT_COLS_NUM - 1)) {
         display_col = 0;
     }
 }
 
+
+/** LED dot location validity checker
+ * @parameter col, row
+ * @return bool
+ */
+bool isValid_dot (uint8_t col, uint8_t row)
+{
+    return (col < LEDMAT_COLS_NUM) && (row < LEDMAT_ROWS_NUM);
+}
+
+
+/** Current maze LED dot state getter
+ * @parameter col, row
+ * @return bool
+ */
+bool maze_dotState (uint8_t col, uint8_t row)
+{
+    bool result = false;
+
+    if (isValid_dot (col, row) &&
+            ((CURRENT_MAZE->maze_pattern)[col] & (1 << row)) != 0) {
+        result = true;
+    }
+
+    return result;
+}
+
+
+/** Current maze LED dot setter
+ * @parameter col, row
+ */
+void maze_setDot (uint8_t col, uint8_t row, bool state)
+{
+    if (isValid_dot (col, row)) {
+        if (state) {
+            (CURRENT_MAZE->maze_pattern)[col] |= (1 << row);
+        } else {
+            (CURRENT_MAZE->maze_pattern)[col] &= ~(1 << row);
+        }
+    }
+}
+
+
+/** Current maze LED dot state toggler
+ * @parameter col, row
+ */
+void maze_toggleDot (uint8_t col, uint8_t row)
+{
+    if (maze_dotState (col, row)) {
+        maze_setDot (col, row, false);
+    } else {
+        maze_setDot (col, row, true);
+    }
+}

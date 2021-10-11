@@ -31,31 +31,37 @@ typedef struct
 } MazeStage_t;
 
 
+// Maze display initialiser
+void mazeDisplay_init (void);
+
+
 /** Current maze stage setter
  * @parameter stage_index
  */
 void maze_setStage (StageIndex_t stage_index);
 
 
-// Maze display initialiser
-void mazeDisplay_init (void);
-
-
 // Display current maze pattern
 void maze_display (void);
 
 
-/** Current maze dot state getter
+/** Current maze LED dot state getter
  * @parameter row_index, col_index
  * @return true(on)/false(off)
  */
-bool maze_dotState (uint8_t row_index, uint8_t col_index);
+bool maze_dotState (uint8_t col, uint8_t row);
 
 
-/** Current maze dot updater
- * @parameter row_index, col_index
+/** Current maze LED dot setter
+ * @parameter col, row, state
  */
-void maze_updateDot (uint8_t row_index, uint8_t col_index);
+void maze_setDot (uint8_t col, uint8_t row, bool state);
+
+
+/** Current maze LED dot state toggler
+ * @parameter col, row
+ */
+void maze_toggleDot (uint8_t col, uint8_t row);
 
 
 #endif // MAZE_DISPLAY_H

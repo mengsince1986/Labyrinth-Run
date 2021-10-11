@@ -6,39 +6,21 @@
  *  @brief A simple maze game with different stages
  */
 
-// API modules
+
 #include "system.h"
 #include "pacer.h"
 #include "maze_display.h"
-// #include "ledmat.h"
 // #include "navswitch.h"
 
-// Game modules
-
-// Fi was here
-
-/*
-// maze patterns
-uint8_t maze_pattern[] =
-{
-    0b0001110, 0b0000010, 0b1001011, 0b0001000, 0b0111011
-};
-*/
-
-// player
-// uint8_t player_loc[] = {2, 7};
 
 int main (void)
 {
-    // current led matrix column
-    // uint8_t current_col = 0;
-
     // navigate task peroid
     // uint8_t nav_tick = 0;
 
-    // trap
     // trap task period
-    // uint16_t trap_tick = 0;
+    uint16_t trap_tick = 0;
+    uint16_t trap_tick_max = 500;
     // trap status
     // uint8_t trap_on = 0;
     // trap location
@@ -46,12 +28,10 @@ int main (void)
 
     // initialise program
     system_init ();
-    mazeDisplay_init ();
-    // ledmat_init ();
     // navswitch_init ();
-
-
-    pacer_init (400);
+    pacer_init (500);
+    mazeDisplay_init ();
+    maze_setStage (STAGE_1);
 
 
     while (1)
@@ -59,38 +39,13 @@ int main (void)
         pacer_wait ();
 
         maze_display ();
-        /*
-
-        // display maze_pattern
-        ledmat_init ();
-        ledmat_display_column(maze_pattern[current_col], current_col);
-        current_col++;
-        // if current led column is greater than max columns
-        // reset current led column to 0
-        if (current_col > (LEDMAT_COLS_NUM - 1)) {
-            current_col = 0;
-        }
-
-        */
-
-        /*
-
         // display trap
         trap_tick++;
-        if (trap_tick >= 1000) {
+        if (trap_tick >= trap_tick_max) {
             trap_tick = 0;
-            if (trap_on) {
-                // turn off trap
-                maze_pattern[trap_loc[0]] &= ~(1<<trap_loc[1]);
-                trap_on = 0;
-            } else {
-                // turn on trap
-                maze_pattern[trap_loc[0]] |= (1<<trap_loc[1]);
-                trap_on = 1;
-            }
+            maze_toggleDot (1, 3);
         }
 
-        */
 
         /*
 
