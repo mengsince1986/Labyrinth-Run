@@ -31,6 +31,7 @@ typedef struct
     uint8_t playerFinish_col;
     uint8_t playerFinish_row;
     uint8_t trap_locs[7][2];
+    uint16_t trapTick_max;
 } MazeStage_t;
 
 
@@ -95,6 +96,11 @@ StageIndex_t maze_stageName (void);
 /** Dispaly maze traps
  */
 void mazeDisplay_traps (void);
+
+
+/** Current maze trap tick max value getter
+ */
+uint16_t mazeTrap_maxTick (void);
 
 
 #endif // MAZE_DISPLAY_H

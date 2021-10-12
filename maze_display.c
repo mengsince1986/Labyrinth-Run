@@ -37,7 +37,8 @@ static MazeStage_t STAGE1 = {
     .playerStart_row = 6,
     .playerFinish_col = 1,
     .playerFinish_row = 0,
-    .trap_locs = {{1, 4}, {3, 2}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}}
+    .trap_locs = {{1, 4}, {3, 2}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}},
+    .trapTick_max = 500
 };
 
 
@@ -54,7 +55,8 @@ static MazeStage_t STAGE2 = {
     .playerStart_row = 6,
     .playerFinish_col = 2,
     .playerFinish_row = 0,
-    .trap_locs = {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {2, 1}, {2, 2}}
+    .trap_locs = {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {2, 1}, {2, 2}},
+    .trapTick_max = 200
 };
 
 static MazeStage_t FAIL = {
@@ -69,7 +71,9 @@ static MazeStage_t FAIL = {
     .playerStart_col = 0,
     .playerStart_row = 0,
     .playerFinish_col = 0,
-    .playerFinish_row = 0
+    .playerFinish_row = 0,
+    .trap_locs = {{9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}},
+    .trapTick_max = 500
 };
 
 static MazeStage_t WIN = {
@@ -84,7 +88,9 @@ static MazeStage_t WIN = {
     .playerStart_col = 0,
     .playerStart_row = 0,
     .playerFinish_col = 0,
-    .playerFinish_row = 0
+    .playerFinish_row = 0,
+    .trap_locs = {{9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}},
+    .trapTick_max = 500
 };
 
 
@@ -246,3 +252,12 @@ void mazeDisplay_traps (void)
                 CURRENT_MAZE->trap_locs[i][1]);
     }
 }
+
+
+/** Current maze trap tick max value getter
+ */
+uint16_t mazeTrap_maxTick (void)
+{
+    return (CURRENT_MAZE->trapTick_max);
+}
+

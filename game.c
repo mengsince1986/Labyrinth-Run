@@ -16,7 +16,6 @@
 
 #define defaultFreq 500
 #define navDelay 40
-#define trapDelay 500
 
 
 void update_playerMove (void)
@@ -63,7 +62,6 @@ int main (void)
 
     // trap config
     uint16_t trap_tick = 0;
-    uint16_t trap_tick_max = trapDelay;
 
     while (1)
     {
@@ -94,7 +92,7 @@ int main (void)
 
             // run trap
             trap_tick++;
-            if (trap_tick >= trap_tick_max) {
+            if (trap_tick >= mazeTrap_maxTick ()) {
                 trap_tick = 0;
                 mazeDisplay_traps ();
             }
