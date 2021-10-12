@@ -13,9 +13,11 @@
 #include "player.h"
 #include "state.h"
 
+
 #define defaultFreq 500
 #define navDelay 40
 #define trapDelay 500
+
 
 void update_playerMove (void)
 {
@@ -43,6 +45,7 @@ void update_playerMove (void)
     // turn on player's current location
     maze_setDot (player_col (), player_row (), true);
 }
+
 
 int main (void)
 {
