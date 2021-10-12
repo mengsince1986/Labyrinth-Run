@@ -17,6 +17,33 @@
 #define navDelay 40
 #define trapDelay 500
 
+void update_playerMove (void)
+{
+    // turn off player's previous location
+    maze_setDot (player_previousCol (), player_previousRow (),
+            false);
+
+    // check game state
+    // set stage completed if player move into complete location
+    // and set game over if no more stages availabe
+    if ((player_col () == maze_playerFinishCol ()) &&
+            player_row () == maze_playerFinishRow ()) {
+        state_completeStage ();
+
+        if (maze_stageName () >= (FAIL_SYMBOL - 1)) {
+            state_endGame ();
+        }
+    }
+
+    // set fail symbol display if player move into wall or traps
+    if (maze_dotState (player_col (), player_row ())) {
+        state_endGame ();
+    }
+
+    // turn on player's current location
+    maze_setDot (player_col (), player_row (), true);
+}
+
 int main (void)
 {
     // initialise program
@@ -49,7 +76,7 @@ int main (void)
             }
         }
 
-        // change to next stage if isStageComplete
+        // check if stage is completed
         if (!(state_isGameOver ()) && (state_isStageComplete ())) {
             maze_setStage (maze_stageName () + 1);
             player_init (maze_playerStartCol(), maze_playerStartRow());
@@ -61,6 +88,7 @@ int main (void)
         maze_display ();
 
         if (!(state_isGameOver())) {
+
             // run trap
             trap_tick++;
             if (trap_tick >= trap_tick_max) {
@@ -73,29 +101,7 @@ int main (void)
             if (nav_tick >= nav_tick_max) {
                 nav_tick = 0;
                 if (player_move ()) {
-                    // turn off player's previous location
-                    maze_setDot (player_previousCol (), player_previousRow (),
-                            false);
-
-                    // check game state
-                    // set stage completed if player move into complete location
-                    // and set game over if no more stages availabe
-                    if ((player_col () == maze_playerFinishCol ()) &&
-                            player_row () == maze_playerFinishRow ()) {
-                        state_completeStage ();
-
-                        if (maze_stageName () >= (FAIL_SYMBOL - 1)) {
-                            state_endGame ();
-                        }
-                    }
-
-                    // set fail symbol display if player move into wall or traps
-                    if (maze_dotState (player_col (), player_row ())) {
-                        state_endGame ();
-                    }
-
-                    // turn on player's current location
-                    maze_setDot (player_col (), player_row (), true);
+                    update_playerMove ();
                 }
             }
         }
