@@ -15,8 +15,10 @@
  * Configuration note:
  * 1. column index is 0-4; row index is 0-6
  * 2. maze_pattern = {0b-row7-row6-row5-row4-row3-row2-row1, ..., ...}
- * 3. start_loc = {row_index, col_index}
- * 4. pass_loc = {row_index, col_index}
+ * 3. trap_locs = {{col, row}, {col, row}, ...}
+ *    - to disable a trap, set it's loc to {9, 9}
+ *    - to make two sets of traps flash alternatively, initialise one set of
+ *      traps on and the other set of traps off in the maze_pattern
  */
 
 // static uint8_t STAGE_NUM = 2;
