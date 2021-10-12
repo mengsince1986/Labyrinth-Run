@@ -75,12 +75,12 @@ int main (void)
                         player_row () == maze_playerFinishRow ()) {
                     state_completeStage ();
 
-                    if (maze_stageName () >= (GAME_OVER - 1)) {
+                    if (maze_stageName () >= (FAIL_SYMBOL - 1)) {
                         state_endGame ();
                     }
                 }
 
-                // set game over if player move into wall or traps
+                // set fail symbol display if player move into wall or traps
                 // or crash into boundaries twice
                 if (maze_dotState (player_col (), player_row ())) {
                     state_endGame ();
@@ -95,8 +95,15 @@ int main (void)
 
     // End Game
     mazeDisplay_init ();
-    maze_setStage (GAME_OVER);
-    while (1) {
-        maze_display ();
+    if (state_isGameOver() && !state_isStageComplete()) {
+        maze_setStage (FAIL_SYMBOL);
+        while (1) {
+            maze_display ();
+        }
+    } else if (state_isGameOver() && state_isStageComplete()) {
+        maze_setStage (WIN_SYMBOL);
+        while (1) {
+            maze_display ();
+        }
     }
 }

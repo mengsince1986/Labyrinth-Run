@@ -26,7 +26,7 @@ static MazeStage_t STAGE1 = {
     .maze_pattern = {
         0b1111111, //col-0
         0b0000100, //col-1
-        0b0010101, //col-2
+        0b1010101, //col-2
         0b0010001, //col-3
         0b1111111  //col-4
     },
@@ -40,29 +40,48 @@ static MazeStage_t STAGE1 = {
 static MazeStage_t STAGE2 = {
     .stage_name = STAGE_2,
     .maze_pattern = {
-        0b0001000, //col-0
-        0b0001000, //col-1
-        0b0000000, //col-2
-        0b1001001, //col-3
-        0b0001000  //col-4
+        0b0000111, //col-0
+        0b0000111, //col-1
+        0b1000000, //col-2
+        0b0000111, //col-3
+        0b0000111  //col-4
     },
-    .playerStart_col = 3,
+    .playerStart_col = 2,
     .playerStart_row = 6,
-    .playerFinish_col = 4,
+    .playerFinish_col = 2,
     .playerFinish_row = 0
 };
 
-
-static MazeStage_t OVER = {
-    .stage_name = GAME_OVER,
+static MazeStage_t FAIL = {
+    .stage_name = FAIL_SYMBOL,
     .maze_pattern = {
-     0x30, 0x46, 0x40, 0x46, 0x30 // smiley face
+        0b0100010, //col-0
+        0b0010100, //col-1
+        0b0001000, //col-2
+        0b0010100, //col-3
+        0b0100010  //col-4
     },
     .playerStart_col = 0,
     .playerStart_row = 0,
     .playerFinish_col = 0,
     .playerFinish_row = 0
 };
+
+static MazeStage_t WIN = {
+    .stage_name = WIN_SYMBOL,
+    .maze_pattern = {
+        0b0000001, //col-0
+        0b0000010, //col-1
+        0b1000100, //col-2
+        0b0101000, //col-3
+        0b0010000  //col-4
+    },
+    .playerStart_col = 0,
+    .playerStart_row = 0,
+    .playerFinish_col = 0,
+    .playerFinish_row = 0
+};
+
 
 static MazeStage_t* CURRENT_MAZE = &STAGE1;
 
@@ -86,11 +105,11 @@ void maze_setStage (StageIndex_t stage_index)
         case STAGE_2:
             CURRENT_MAZE = &STAGE2;
             break;
-        //case STAGE_3:
-        //    CURRENT_MAZE = &STAGE3;
-        //    break;
-        case GAME_OVER:
-            CURRENT_MAZE = &OVER;
+        case FAIL_SYMBOL:
+            CURRENT_MAZE = &FAIL;
+            break;
+        case WIN_SYMBOL:
+            CURRENT_MAZE = &WIN;
             break;
         default:
             CURRENT_MAZE = &STAGE1;
