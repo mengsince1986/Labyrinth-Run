@@ -14,6 +14,8 @@
 #include "state.h"
 
 #define defaultFreq 500
+#define navDelay 40
+#define trapDelay 500
 
 int main (void)
 {
@@ -27,13 +29,11 @@ int main (void)
 
     // player move config
     uint16_t nav_tick = 0;
-    uint16_t nav_tick_max = 40;
+    uint16_t nav_tick_max = navDelay;
 
     // trap config
     uint16_t trap_tick = 0;
-    uint16_t trap_tick_max = 500;
-    uint8_t trap_col = 1;
-    uint8_t trap_row = 3;
+    uint16_t trap_tick_max = trapDelay;
 
     while (1)
     {
@@ -62,12 +62,10 @@ int main (void)
 
         if (!(state_isGameOver())) {
             // run trap
-            if (maze_stageName () == STAGE_1) {
-                trap_tick++;
-                if (trap_tick >= trap_tick_max) {
-                    trap_tick = 0;
-                    maze_toggleDot (trap_col, trap_row);
-                }
+            trap_tick++;
+            if (trap_tick >= trap_tick_max) {
+                trap_tick = 0;
+                mazeDisplay_traps ();
             }
 
             // move player
@@ -76,9 +74,12 @@ int main (void)
                 nav_tick = 0;
                 if (player_move ()) {
                     // turn off player's previous location
-                    maze_setDot (player_previousCol (), player_previousRow (), false);
+                    maze_setDot (player_previousCol (), player_previousRow (),
+                            false);
 
+                    // check game state
                     // set stage completed if player move into complete location
+                    // and set game over if no more stages availabe
                     if ((player_col () == maze_playerFinishCol ()) &&
                             player_row () == maze_playerFinishRow ()) {
                         state_completeStage ();
@@ -89,7 +90,6 @@ int main (void)
                     }
 
                     // set fail symbol display if player move into wall or traps
-                    // or crash into boundaries twice
                     if (maze_dotState (player_col (), player_row ())) {
                         state_endGame ();
                     }

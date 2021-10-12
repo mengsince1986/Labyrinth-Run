@@ -30,6 +30,7 @@ typedef struct
     uint8_t playerStart_row;
     uint8_t playerFinish_col;
     uint8_t playerFinish_row;
+    uint8_t trap_locs[7][2];
 } MazeStage_t;
 
 
@@ -89,6 +90,11 @@ uint8_t maze_playerFinishRow (void);
 /** Current maze stage name getter
  */
 StageIndex_t maze_stageName (void);
+
+
+/** Dispaly maze traps
+ */
+void mazeDisplay_traps (void);
 
 
 #endif // MAZE_DISPLAY_H
