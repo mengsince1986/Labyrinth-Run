@@ -68,7 +68,16 @@ int main (void)
     {
         pacer_wait ();
 
-        // check if game is over
+        // check if reset game
+        if (state_hasGameReset ()) {
+            state_init ();
+            mazeDisplay_init ();
+            mazePatterns_init ();
+            maze_setStage (STAGE_1);
+            player_init (maze_playerStartCol(), maze_playerStartRow());
+        }
+
+        // check if game over
         if (state_isGameOver ()) {
 
             if (!state_isStageComplete ()) {
@@ -76,7 +85,7 @@ int main (void)
             } else if (state_isStageComplete ()) {
                 maze_setStage (WIN_SYMBOL);
             }
-            mazePatterns_init ();
+            press_resetGame ();
         }
 
         // check if stage is completed
@@ -92,6 +101,7 @@ int main (void)
 
         if (!(state_isGameOver())) {
 
+            press_resetGame ();
             // run trap
             trap_tick++;
             if (trap_tick >= mazeTrap_maxTick ()) {
