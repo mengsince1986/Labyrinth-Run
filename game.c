@@ -52,6 +52,7 @@ int main (void)
     system_init ();
     pacer_init (defaultFreq);
     mazeDisplay_init ();
+    mazePatterns_init ();
     maze_setStage (STAGE_1);
     player_init (maze_playerStartCol(), maze_playerStartRow());
     state_init ();
@@ -75,6 +76,7 @@ int main (void)
             } else if (state_isStageComplete ()) {
                 maze_setStage (WIN_SYMBOL);
             }
+            mazePatterns_init ();
         }
 
         // check if stage is completed

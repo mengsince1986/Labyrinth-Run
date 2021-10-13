@@ -10,6 +10,26 @@
 #include "ledmat.h"
 #include "maze_display.h"
 
+#define TRAPS_NUM 7
+
+// maze initial patterns
+// !!!DONNOT MODIFY!!!
+uint8_t STAGE1_PATTERN_INIT[5] = {
+        0b1111111, //col-0
+        0b0010100, //col-1
+        0b1010101, //col-2
+        0b0010001, //col-3
+        0b1111111  //col-4
+};
+
+uint8_t STAGE2_PATTERN_INIT[5] = {
+        0b0010111, //col-0
+        0b0000111, //col-1
+        0b1010000, //col-2
+        0b0000111, //col-3
+        0b0010111  //col-4
+};
+
 /**
  * Set stage patterns
  * Configuration note:
@@ -22,7 +42,7 @@
  */
 
 // static uint8_t STAGE_NUM = 2;
-#define TRAPS_NUM 7
+
 
 static MazeStage_t STAGE1 = {
     .stage_name = STAGE_1,
@@ -97,10 +117,29 @@ static MazeStage_t WIN = {
 static MazeStage_t* CURRENT_MAZE = &STAGE1;
 
 
+/** Reset the stage maze_pattern to initial state
+ * @parameter init_source maze_pattern
+ */
+void maze_initPattern (uint8_t init_source[5], uint8_t maze_pattern[5])
+{
+    for (uint8_t i = 0; i < LEDMAT_COLS_NUM; i++) {
+        maze_pattern[i] = init_source[i];
+    }
+}
+
+
 // Maze display initialiser
 void mazeDisplay_init (void)
 {
     ledmat_init ();
+}
+
+
+// Maze stage patterns initialiser
+void mazePatterns_init (void)
+{
+    maze_initPattern (STAGE1_PATTERN_INIT, STAGE1.maze_pattern);
+    maze_initPattern (STAGE2_PATTERN_INIT, STAGE2.maze_pattern);
 }
 
 

@@ -39,6 +39,10 @@ typedef struct
 void mazeDisplay_init (void);
 
 
+// Maze stage patterns initialiser
+void mazePatterns_init (void);
+
+
 /** Current maze stage setter
  * @parameter stage_index
  */
