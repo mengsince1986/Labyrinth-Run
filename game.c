@@ -17,8 +17,25 @@
 #define defaultFreq 500
 #define navDelay 40
 
+/**
+ * Update the display of traps and check if player is in traps
+ */
+void updateCheck_traps (void)
+{
+    ActiveTrap_locs_t activeTraps =  mazeDisplay_traps ();
+    for (uint8_t i = 0; i < TRAPS_NUM; i++) {
+        if (activeTraps.locs[i][0] == player_col () &&
+                activeTraps.locs[i][1] == player_row ()) {
+            state_endGame ();
+        }
+    }
+}
 
-void update_playerMove (void)
+
+/**
+ * Update the display of player and check if player moves to walls/traps
+ */
+void updateCheck_playerMove (void)
 {
     // turn off player's previous location
     maze_setDot (player_previousCol (), player_previousRow (),
@@ -106,7 +123,7 @@ int main (void)
             trap_tick++;
             if (trap_tick >= mazeTrap_maxTick ()) {
                 trap_tick = 0;
-                mazeDisplay_traps ();
+                updateCheck_traps ();
             }
 
             // move player
@@ -114,7 +131,7 @@ int main (void)
             if (nav_tick >= nav_tick_max) {
                 nav_tick = 0;
                 if (player_move ()) {
-                    update_playerMove ();
+                    updateCheck_playerMove ();
                 }
             }
         }

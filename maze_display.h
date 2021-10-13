@@ -11,28 +11,45 @@
 
 #include "system.h"
 
-// Maze stage identifier type
+#define TRAPS_NUM 7
+#define LOC_DIMENSION 2
+
+
+/**Maze stage identifier type
+ * Always add new stage to enum
+ */
 typedef enum {STAGE_1 = 1, STAGE_2, FAIL_SYMBOL, WIN_SYMBOL} StageIndex_t;
 
 
-/** Maze stage struct type
- *  Configuration note:
+/**
+ * Set stage patterns
+ * Configuration note:
  * 1. column index is 0-4; row index is 0-6
  * 2. maze_pattern = {0b-row7-row6-row5-row4-row3-row2-row1, ..., ...}
- * 3. start_loc = {row_index, col_index} where player starts
- * 4. pass_loc = {row_index, col_index} where player passes stage
+ * 3. trap_locs = {{col, row}, {col, row}, ...}
+ *    - to disable a trap, set it's loc to {DISABLE_LOC, DISABLE_LOC}
+ *    - to make two sets of traps flash alternatively, initialise one set of
+ *      traps on and the other set of traps off in the maze_pattern
+ * 4. trapTick_max: set the frequency of traps, the lower the value the higher
+ *                  the frequency
  */
+
 typedef struct
 {
     StageIndex_t stage_name;
-    uint8_t maze_pattern[5];
+    uint8_t maze_pattern[LEDMAT_COLS_NUM];
     uint8_t playerStart_col;
     uint8_t playerStart_row;
     uint8_t playerFinish_col;
     uint8_t playerFinish_row;
-    uint8_t trap_locs[7][2];
+    uint8_t trap_locs[TRAPS_NUM][LOC_DIMENSION];
     uint16_t trapTick_max;
 } MazeStage_t;
+
+
+typedef struct {
+    uint8_t locs[TRAPS_NUM][LOC_DIMENSION];
+} ActiveTrap_locs_t;
 
 
 // Maze display initialiser
@@ -93,7 +110,7 @@ StageIndex_t maze_stageName (void);
 
 /** Dispaly maze traps
  */
-void mazeDisplay_traps (void);
+ActiveTrap_locs_t mazeDisplay_traps (void);
 
 
 /** Current maze trap tick max value getter

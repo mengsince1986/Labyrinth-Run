@@ -10,11 +10,11 @@
 #include "ledmat.h"
 #include "maze_display.h"
 
-#define TRAPS_NUM 7
+#define DISABLE_LOC 9
 
 // maze initial patterns
 // !!!DONNOT MODIFY!!!
-uint8_t STAGE1_PATTERN_INIT[5] = {
+uint8_t STAGE1_PATTERN_INIT[LEDMAT_COLS_NUM] = {
         0b1111111, //col-0
         0b0010100, //col-1
         0b1010101, //col-2
@@ -22,7 +22,7 @@ uint8_t STAGE1_PATTERN_INIT[5] = {
         0b1111111  //col-4
 };
 
-uint8_t STAGE2_PATTERN_INIT[5] = {
+uint8_t STAGE2_PATTERN_INIT[LEDMAT_COLS_NUM] = {
         0b0010111, //col-0
         0b0000111, //col-1
         0b1010000, //col-2
@@ -36,9 +36,11 @@ uint8_t STAGE2_PATTERN_INIT[5] = {
  * 1. column index is 0-4; row index is 0-6
  * 2. maze_pattern = {0b-row7-row6-row5-row4-row3-row2-row1, ..., ...}
  * 3. trap_locs = {{col, row}, {col, row}, ...}
- *    - to disable a trap, set it's loc to {9, 9}
+ *    - to disable a trap, set it's loc to {DISABLE_LOC, DISABLE_LOC}
  *    - to make two sets of traps flash alternatively, initialise one set of
  *      traps on and the other set of traps off in the maze_pattern
+ * 4. trapTick_max: set the frequency of traps, the lower the value the higher
+ *                  the frequency
  */
 
 // static uint8_t STAGE_NUM = 2;
@@ -57,7 +59,9 @@ static MazeStage_t STAGE1 = {
     .playerStart_row = 6,
     .playerFinish_col = 1,
     .playerFinish_row = 0,
-    .trap_locs = {{1, 4}, {3, 2}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}},
+    .trap_locs = {{1, 4}, {3, 2}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC}},
     .trapTick_max = 500
 };
 
@@ -92,7 +96,10 @@ static MazeStage_t FAIL = {
     .playerStart_row = 0,
     .playerFinish_col = 0,
     .playerFinish_row = 0,
-    .trap_locs = {{9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}},
+    .trap_locs = {{DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}},
     .trapTick_max = 500
 };
 
@@ -109,7 +116,10 @@ static MazeStage_t WIN = {
     .playerStart_row = 0,
     .playerFinish_col = 0,
     .playerFinish_row = 0,
-    .trap_locs = {{9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}, {9, 9}},
+    .trap_locs = {{DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}, {DISABLE_LOC, DISABLE_LOC},
+        {DISABLE_LOC, DISABLE_LOC}},
     .trapTick_max = 500
 };
 
@@ -120,7 +130,8 @@ static MazeStage_t* CURRENT_MAZE = &STAGE1;
 /** Reset the stage maze_pattern to initial state
  * @parameter init_source maze_pattern
  */
-void maze_initPattern (uint8_t init_source[5], uint8_t maze_pattern[5])
+void maze_initPattern (uint8_t init_source[LEDMAT_COLS_NUM],
+        uint8_t maze_pattern[LEDMAT_COLS_NUM])
 {
     for (uint8_t i = 0; i < LEDMAT_COLS_NUM; i++) {
         maze_pattern[i] = init_source[i];
@@ -284,12 +295,22 @@ StageIndex_t maze_stageName (void)
 
 /** Dispaly maze traps
  */
-void mazeDisplay_traps (void)
+ActiveTrap_locs_t mazeDisplay_traps (void)
 {
+    ActiveTrap_locs_t active_traps;
     for (uint8_t i = 0; i < TRAPS_NUM; i++) {
         maze_toggleDot (CURRENT_MAZE->trap_locs[i][0],
                 CURRENT_MAZE->trap_locs[i][1]);
+        if (maze_dotState (CURRENT_MAZE->trap_locs[i][0],
+                    CURRENT_MAZE->trap_locs[i][1])) {
+            active_traps.locs[i][0] = CURRENT_MAZE->trap_locs[i][0];
+            active_traps.locs[i][1] = CURRENT_MAZE->trap_locs[i][1];
+        } else {
+            active_traps.locs[i][0] = DISABLE_LOC;
+            active_traps.locs[i][1] = DISABLE_LOC;
+        }
     }
+    return active_traps;
 }
 
 
