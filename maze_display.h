@@ -66,12 +66,6 @@ bool maze_dotState (uint8_t col, uint8_t row);
 void maze_setDot (uint8_t col, uint8_t row, bool state);
 
 
-/** Current maze LED dot state toggler
- * @parameter col, row
- */
-void maze_toggleDot (uint8_t col, uint8_t row);
-
-
 /** Current maze player start column location getter
  */
 uint8_t maze_playerStartCol (void);

@@ -51,11 +51,6 @@ void state_endGame (void);
 void state_completeStage (void);
 
 
-/** State of gameReset setter
- */
-void state_resetGame (void);
-
-
 /** Press button to reset game
  */
 void press_resetGame (void);
