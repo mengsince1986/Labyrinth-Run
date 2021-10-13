@@ -34,7 +34,10 @@ navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/a
 player.o: player.c ../../drivers/avr/system.h ../../drivers/navswitch.h player.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-state.o: state.c ../../drivers/avr/system.h state.h
+pio.o: ../../drivers/avr/pio.c ../../drivers/avr/pio.h ../../drivers/avr/system.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+state.o: state.c ../../drivers/avr/system.h ../../drivers/avr/pio.h state.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 timer.o: ../../drivers/avr/timer.c ../../drivers/avr/system.h ../../drivers/avr/timer.h
@@ -47,7 +50,7 @@ pacer.o: ../../utils/pacer.c ../../drivers/avr/system.h ../../drivers/avr/timer.
 
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o ledmat.o maze_display.o navswitch.o player.o state.o timer.o pacer.o
+game.out: game.o system.o ledmat.o maze_display.o navswitch.o player.o pio.o state.o timer.o pacer.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 

@@ -17,6 +17,7 @@ typedef struct
 {
     bool isGameOver;
     bool stageComplete;
+    bool gameReset;
 } State_t;
 
 
@@ -35,6 +36,11 @@ bool state_isGameOver (void);
 bool state_isStageComplete (void);
 
 
+/** State of gameReset getter
+ */
+bool state_hasGameReset (void);
+
+
 /** State of isGameOver setter
  */
 void state_endGame (void);
@@ -44,5 +50,14 @@ void state_endGame (void);
  */
 void state_completeStage (void);
 
+
+/** State of gameReset setter
+ */
+void state_resetGame (void);
+
+
+/** Press button to reset game
+ */
+void press_resetGame (void);
 
 #endif //STATE_H

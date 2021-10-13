@@ -8,12 +8,14 @@
 
 
 #include "system.h"
+#include "pio.h"
 #include "state.h"
 
 
 static State_t STATE = {
     .isGameOver = false,
-    .stageComplete = false
+    .stageComplete = false,
+    .gameReset = false
 };
 
 
@@ -23,6 +25,7 @@ void state_init (void)
 {
     STATE.isGameOver = false;
     STATE.stageComplete = false;
+    STATE.gameReset = false;
 }
 
 
@@ -42,6 +45,14 @@ bool state_isStageComplete (void)
 }
 
 
+/** State of gameReset getter
+ */
+bool state_hasGameReset (void)
+{
+    return STATE.gameReset;
+}
+
+
 /** State of isGameOver setter
  */
 void state_endGame (void)
@@ -56,3 +67,24 @@ void state_completeStage (void)
 {
     STATE.stageComplete = true;
 }
+
+
+/** State of gameReset setter
+ */
+void state_resetGame (void)
+{
+    STATE.gameReset = true;
+}
+
+
+/** Press button to reset game
+ */
+void press_resetGame (void) {
+
+    pio_config_set (BUTTON1_PIO, PIO_INPUT);
+    if (pio_input_get (BUTTON1_PIO)) {
+        state_resetGame ();
+    }
+
+}
+
