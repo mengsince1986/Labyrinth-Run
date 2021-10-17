@@ -43,8 +43,6 @@ uint8_t STAGE2_PATTERN_INIT[LEDMAT_COLS_NUM] = {
  *                  the frequency
  */
 
-// static uint8_t STAGE_NUM = 2;
-
 
 static MazeStage_t STAGE1 = {
     .stage_name = STAGE_1,

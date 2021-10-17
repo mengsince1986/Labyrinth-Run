@@ -74,11 +74,11 @@ int main (void)
     player_init (maze_playerStartCol(), maze_playerStartRow());
     state_init ();
 
-    // player move config
+    // initialise player move frequency tick starter and max tick
     uint16_t nav_tick = 0;
     uint16_t nav_tick_max = navDelay;
 
-    // trap config
+    // initialise trap frequency tick starter
     uint16_t trap_tick = 0;
 
     while (1)
