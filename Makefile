@@ -1,7 +1,10 @@
-# File:   Makefile
-# Author: M. P. Hayes, UCECE
-# Date:   12 Sep 2010
-# Descr:  Makefile for game
+# @file Makefile
+# @group 112
+# @author Meng Zhang
+# @author Sophie Engel
+# @date October 2021
+# @brief Makefile to compile game.c and its dependent modules
+
 
 # Definitions.
 CC = avr-gcc

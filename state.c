@@ -3,7 +3,7 @@
  *  @author Meng Zhang
  *  @author Sophie Engel
  *  @date October 2021
- *  @brief game state module header c file
+ *  @brief game state module c file
  */
 
 

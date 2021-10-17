@@ -22,7 +22,7 @@ typedef struct
 } Player_t;
 
 
-/** Plyaer initialiser
+/** Player initialiser
  * @parameter col row
  */
 void player_init (uint8_t col, uint8_t row);
