@@ -19,14 +19,17 @@ MAZE112 is a multi-stage maze game. Player moves a dot by navswitch and tries to
 * **Maze**: formed by lit led lights which are seen as walls.
 * **Entrance**: player usually starts at column 3 row 7 of the LED matrix.
 * **Exit**: located at the opposite side of the entrance, where there's no walls or traps.
-* **Traps**: blinking led lights which are activated when lit.
+* **Traps**: blinking led lights which are lit when activated.
 * **Display Orientation**: the navswitch side as bottom.
 
 1. How to win a stage?
+
 Player wins a stage by moving the dot from the maze entrance to the exit. The maze will be automatically updated if the player finishes a stage without failure. When the player finishes all the stages available, there will be a check shown on the display.
 
 2. How to fail a stage?
+
 Player fails when moving the dot into a maze wall or an activated trap. When the player fails there will be a cross shown on the display.
 
 3. How to reset/restart the game?
+
 Push the pushbutton any time you want to reset/restart the game.
