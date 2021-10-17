@@ -18,7 +18,8 @@
 /**Maze stage identifier type
  * Always add new stage to enum
  */
-typedef enum {STAGE_1 = 1, STAGE_2, STAGE_3, STAGE_4, STAGE_5, FAIL_SYMBOL, WIN_SYMBOL} StageIndex_t;
+typedef enum {STAGE_1 = 1, STAGE_2, STAGE_3, STAGE_4, STAGE_5, FAIL_SYMBOL,
+    WIN_SYMBOL} StageIndex_t;
 
 
 /**
