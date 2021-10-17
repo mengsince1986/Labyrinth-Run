@@ -13,7 +13,7 @@
 #define DISABLE_LOC 9
 
 // maze initial patterns
-// !!!DONNOT MODIFY!!!
+// !!!DO NOT MODIFY!!!
 uint8_t STAGE1_PATTERN_INIT[LEDMAT_COLS_NUM] = {
         0b1111111, //col-0
         0b0010100, //col-1
@@ -78,6 +78,57 @@ static MazeStage_t STAGE2 = {
     .playerFinish_col = 2,
     .playerFinish_row = 0,
     .trap_locs = {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {2, 1}, {2, 2}},
+    .trapTick_max = 200
+};
+
+static MazeStage_t STAGE3 = {
+    .stage_name = STAGE_3,
+    .maze_pattern = {
+        0b1111111, //col-0
+        0b0000001, //col-1
+        0b0011100, //col-2
+        0b0000001, //col-3
+        0b1111111  //col-4
+    },
+    .playerStart_col = 2,
+    .playerStart_row = 6,
+    .playerFinish_col = 2,
+    .playerFinish_row = 0,
+    .trap_locs = {{1, 4}, {1, 2}, {3, 3}, {3, 2}},
+    .trapTick_max = 200
+};
+
+static MazeStage_t STAGE4 = {
+    .stage_name = STAGE_4,
+    .maze_pattern = {
+        0b0000001, //col-0
+        0b0111101, //col-1
+        0b0000000, //col-2
+        0b0111101, //col-3
+        0b0000001  //col-4
+    },
+    .playerStart_col = 2,
+    .playerStart_row = 6,
+    .playerFinish_col = 2,
+    .playerFinish_row = 0,
+    .trap_locs = {{0, 1}, {2, 4}, {2, 3}, {2, 1}, {4, 1}},
+    .trapTick_max = 200
+};
+
+static MazeStage_t STAGE5 = {
+    .stage_name = STAGE_5,
+    .maze_pattern = {
+        0b0000011, //col-0
+        0b0101011, //col-1
+        0b0101000, //col-2
+        0b0101011, //col-3
+        0b1100011  //col-4
+    },
+    .playerStart_col = 2,
+    .playerStart_row = 6,
+    .playerFinish_col = 2,
+    .playerFinish_row = 0,
+    .trap_locs = {{0, 6}, {0, 3}, {0, 2}, {2, 2}, {3, 4}, {4, 4}},
     .trapTick_max = 200
 };
 
@@ -149,6 +200,9 @@ void mazePatterns_init (void)
 {
     maze_initPattern (STAGE1_PATTERN_INIT, STAGE1.maze_pattern);
     maze_initPattern (STAGE2_PATTERN_INIT, STAGE2.maze_pattern);
+//    maze_initPattern (STAGE3_PATTERN_INIT, STAGE3.maze_pattern);
+//    maze_initPattern (STAGE4_PATTERN_INIT, STAGE4.maze_pattern);
+//    maze_initPattern (STAGE5_PATTERN_INIT, STAGE5.maze_pattern);
 }
 
 
@@ -163,6 +217,15 @@ void maze_setStage (StageIndex_t stage_index)
             break;
         case STAGE_2:
             CURRENT_MAZE = &STAGE2;
+            break;
+        case STAGE_3:
+            CURRENT_MAZE = &STAGE3;
+            break;
+        case STAGE_4:
+            CURRENT_MAZE = &STAGE4;
+            break;
+        case STAGE_5:
+            CURRENT_MAZE = &STAGE5;
             break;
         case FAIL_SYMBOL:
             CURRENT_MAZE = &FAIL;
