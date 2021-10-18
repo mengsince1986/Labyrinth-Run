@@ -1,4 +1,4 @@
-/** @file maze_display.c
+/** @file maze_display.h
  *  @group 112
  *  @author Meng Zhang
  *  @author Sophie Engel
