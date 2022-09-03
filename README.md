@@ -1,6 +1,6 @@
-# UC 2021 ENCE260 Project
+# Labyrinth Run-A project of UC-ENCE260: Computer Systems
 
-## Group 112
+## Authors
 * Sophie Engel
 * Meng Zhang
 
