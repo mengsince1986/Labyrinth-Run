@@ -1,13 +1,13 @@
-# Labyrinth Run-A project of UC-ENCE260: Computer Systems
+# Labyrinth Run
 
 ## Authors
-* Sophie Engel
 * Meng Zhang
+* Sophie Engel
 
 ## How to install game Labyrinth Run on UCFK4 board?
-1. Install AVR compilation tools on the computer (refer to UC ECE Wiki);
+1. Install AVR compilation tools(refer to UC ECE Wiki);
 2. Connect UCFK4 board to the computer with a compatiable mini-USB cable;
-3. Change directory to "group_112";
+3. Change directory to folder *src*;
 4. Start a terminal in current directory and run `make all` to compile the game;
 5. In the terminal, run `make program` to install the game onto UCFK4 board.
 
