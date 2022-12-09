@@ -6,8 +6,12 @@
 
 ## How to install game Labyrinth Run on UCFK4 board?
 1. Install AVR compilation tools(refer to UC ECE Wiki);
+   - `sudo apt-get install git gcc-avr binutils-avr avr-libc dfu-programmer`
+2. Give USB permission using udev rules;
+   - dfu-programmer needs permission to access the USB port. You can allow this by creating a file called `/etc/udev/rules.d/52-bootloadDFU.rules` containing:
+   `SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", GROUP="plugdev"`
 2. Connect UCFK4 board to the computer with a compatiable mini-USB cable;
-3. Change directory to folder *src*;
+3. Change directory to folder *assignment/final*;
 4. Start a terminal in current directory and run `make all` to compile the game;
 5. In the terminal, run `make program` to install the game onto UCFK4 board.
 
